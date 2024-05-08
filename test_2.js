@@ -47,9 +47,9 @@ for (let i = 0; i < sec; i++) {
 
 //console.log(section);
 
-for(let i = 0 ; i < sec ; i++){
+for(let i = 0 ; i < days ; i++){
     for(let j = 0; j < cls ; j++){
-        for(let k = 0 ; k < days ;k++){
+        for(let k = 0 ; k < sec ;k++){
             section[k][j][i] =z
             z--
         }
