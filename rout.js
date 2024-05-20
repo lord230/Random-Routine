@@ -27,36 +27,6 @@ function cls_ava(val, tch) {
     return -1; // All teachers are busy
 }
 
-// Hash map
-// create hash map
-function create_map(sec, val) {
-    const width = 2;
-    const map = [];
-    for (let i = 0; i < sec; i++) {
-        map.push([]);
-        for (let j = 0; j < val; j++) {
-            map[i].push([]);
-            for (let k = 0; k < width; k++) {
-                map[i][j].push(0);
-            }
-        }
-    }
-    return map;
-}
-
-function check_map(map, k, cl_n) {
-    if (!map[k] || !map[k][cl_n]) {
-        return;
-    }
-
-    if (map[k][cl_n][0] === 0) {
-        map[k][cl_n][0] = 1;
-        map[k][cl_n][1] += 1;
-    } else if (map[k][cl_n][0] === 1) {
-        map[k][cl_n][1] += 1;
-    }
-    return map;
-}
 
 // check the hash map
 function check_r(map, section, days, cls, sec, teacher, tch, val) {
@@ -127,8 +97,14 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
         }
         check_sec.push(arr1);
     }
-
-    let map = create_map(sec, val);
+    
+function check(box,cl_n){
+    let len = box.length();
+    while(box[len] === cl_n){
+        return false
+    }
+    return true
+}
 
     for (let i = 0; i < days; i++) {
         for (let j = 0; j < cls; j++) {
@@ -149,17 +125,16 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
 
                 if (j > 0) {
                     for (let c = j - 1; c >= 0; c--) {
+                        let box[c]
+                          box.fill(-1);
                         if (section[k][j][i] === teacher[check_sec[k][c][i]]) {
                             tch[cl_n] = 0;
+                            
+                            box[c] = cl_n 
                             cl_n = cls_ava(val, tch);
 
-                            if (cl_n === -1) {
-                                console.error("No available teacher found during conflict resolution!");
-                                break;
-                            }
-
-                            if (tch[cl_n] === 0 && tch[cl_n] !== check_sec[k][c][i]) {
-                                tch[cl_n] = 1;
+                            while (tch[cl_n] === 0 && !check(box,cl_n)) {
+                                cl_n = cls_ava(val, tch);
                             }
                             section[k][j][i] = teacher[cl_n];
                             check_sec[k][j][i] = cl_n;
@@ -171,8 +146,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
         }
     }
 
-    console.log(section);
-
+console.log(check_sec)
     for (let i = 0; i < sec; i++) {
         rotate2DArrayInside3DArrayClockwise(section, i);
     }
