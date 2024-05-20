@@ -29,16 +29,15 @@ function cls_ava(val, tch) {
 
 
 // check the hash map
-function check_r(map, section, days, cls, sec, teacher, tch, val) {
-    let num = parseInt(days * cls);
-    let max = parseInt(num / val);
-    for (let i = 0; i < sec; i++) {
-        for (let j = 0; j < val; j++) {
-            if (map[i][j][1] > max || map[i][j][1] === 0) {
-                // Handle the case here (e.g., regenerate routine)
-            }
+function check(box,cl_n){
+    let len = box.length;
+    for(let i = 0 ; i < len ;i++){
+        if(box[i] === cl_n){
+            return false
+            break;
         }
     }
+    return true
 }
 
 // Routine Generation
@@ -98,13 +97,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
         check_sec.push(arr1);
     }
     
-function check(box,cl_n){
-    let len = box.length();
-    while(box[len] === cl_n){
-        return false
-    }
-    return true
-}
+
 
     for (let i = 0; i < days; i++) {
         for (let j = 0; j < cls; j++) {
@@ -122,25 +115,47 @@ function check(box,cl_n){
 
                 section[k][j][i] = teacher[cl_n];
                 check_sec[k][j][i] = cl_n;
+                        let box = []
 
                 if (j > 0) {
                     for (let c = j - 1; c >= 0; c--) {
-                        let box[c]
-                          box.fill(-1);
+                        for(let st = c ; st >= 0 ;st--){
+                                box[st] = check_sec[k][st][i];
+                            }
+                            
+                            if(check(box,cls)){
+                                continue;
+                            }else{
+                                tch[cl_n] = 0;
+                                cl_n = cls_ava(val ,tch);
+                                while(tch[cl_n] === 0 && !check(box,cl_n)){
+                                    cl_n = cls_ava(val,tch);
+                                }
+                                if(check(box,cl_n)){
+                                    section[k][j][i] = teacher[cl_n]
+                                }
+                            }
                         if (section[k][j][i] === teacher[check_sec[k][c][i]]) {
                             tch[cl_n] = 0;
                             
-                            box[c] = cl_n 
+                            
+                            
                             cl_n = cls_ava(val, tch);
 
-                            while (tch[cl_n] === 0 && !check(box,cl_n)) {
+                            while (tch[cl_n] !== 0 && !check(box,cl_n)) {
                                 cl_n = cls_ava(val, tch);
+                                check(box,cl_n)
                             }
+                            if(check(box,cl_n)){
                             section[k][j][i] = teacher[cl_n];
                             check_sec[k][j][i] = cl_n;
+                            tch[cl_n] = 1;
+                            }
                         }
                     }
+                    
                 }
+                box.fill(0)
             }
             tch.fill(0);
         }
@@ -150,7 +165,7 @@ console.log(check_sec)
     for (let i = 0; i < sec; i++) {
         rotate2DArrayInside3DArrayClockwise(section, i);
     }
-    console.log(section);
+    // console.log(section);
 
 }
 
