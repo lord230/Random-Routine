@@ -34,40 +34,35 @@ function cls_ava(val, tch) {
 
 //Hash map
 //create hash map
-function create_map(sec,val){
-    
-        const width = 2;
-
-
+function create_map(sec, val) {
+    const width = 2;
     const map = [];
-    for(let i = 0 ; i<sec;i++){
+    for (let i = 0; i < sec; i++) {
         map.push([]);
-        for(let j = 0 ; j < val ;j++){
+        for (let j = 0; j < val; j++) {
             map[i].push([]);
-            for(let k = 0 ; k < width; k++){
+            for (let k = 0; k < width; k++) {
                 map[i][j].push(0);
             }
         }
     }
-   
-   
-    
     return map;
 }
 
+function check_map(map, k, cl_n) {
+    if (!map[k] || !map[k][cl_n]) {
+       // console.error(`Invalid indices: k=${k}, cl_n=${cl_n}`);
+        return;
+    }
 
-//modify hashmap 
-function check_map(map,k,cl_n){
-    
-    if(map[k][cl_n][0] === 0){
+    if (map[k][cl_n][0] === 0) {
         map[k][cl_n][0] = 1;
         map[k][cl_n][1] += 1;
+    } else if (map[k][cl_n][0] === 1) {
+        map[k][cl_n][1] += 1; // Corrected the increment operation
     }
-    else if(map[k][cl_n][0] === 1){
-        map[k][cl_n][1] +1;
-    }
-    
 }
+
 
 //Routine Generation
 
@@ -119,7 +114,7 @@ for (let i = 0; i < sec; i++) {
 
 //console.log(section);
 let map = create_map(sec,val);
-console.log(map)
+//console.log(map)
 
 for(let i = 0 ; i < days ; i++){
     for(let j = 0; j < cls ; j++){
