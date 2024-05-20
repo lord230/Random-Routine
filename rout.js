@@ -3,6 +3,7 @@ let days = 5;
 let cls = 6;
 let z = 0;
 let section = [];
+let check_sec = [];
 const teacher = [
         "Math",
         "Physics",
@@ -61,13 +62,29 @@ function check_map(map, k, cl_n) {
     } else if (map[k][cl_n][0] === 1) {
         map[k][cl_n][1] += 1; // Corrected the increment operation
     }
+    return map
 }
 
+//check the hash map
+    
+  function check_r(map,section,days,cls,sec,teacher,tch,val){
+      let num = parseInt(days*cls)
+      let max = parseInt(num / val);
+      //console.log('in')
+    for(let i = 0 ; i < sec ; i++){
+        for(let j = 0 ; j < val ; j++){
+            if(map[i][j][1] > max || map[i][j][1] === 0){
+             //   console.log("in")
+               // g_routine(section,days,cls,sec,teacher,tch,val);
+            }
+        }
+    }
+} 
 
 //Routine Generation
 
 function g_routine(section,days,cls,sec,teacher,tch,val){
-    
+ 
     
 function rotate2DArrayInside3DArrayClockwise(arr3D, layerIndex) {
     const layer = arr3D[layerIndex];
@@ -110,6 +127,18 @@ for (let i = 0; i < sec; i++) {
     section.push(arr); // Push section array to main section array
 }
 
+for(let i = 0 ; i < sec ;i++){
+    let arr1 = [];
+    for(let j = 0 ; j < cls ;j++){
+        let dayArr1 = []
+        for(let k = 0 ; k < days ; k++){
+            dayArr1.push(-1);
+        }
+        arr1.push(dayArr1);
+    }
+    check_sec.push(arr1);
+}
+
 // Modifying a value in the array
 
 //console.log(section);
@@ -128,7 +157,15 @@ for(let i = 0 ; i < days ; i++){
                     cl_n = cls_ava(val, tch);
                 }
                  section[k][j][i] = teacher[cl_n];
-                 check_map(map,k,cl_n)
+                 check_sec[k][j][i] = cl_n;
+                 if(j > 0){
+                 for(let c = j -1 ; c < 0 ; c--){
+                    while(section[k][j][i] === teacher[check_sec[k][c][i]]){
+                        section[k][j][i] = teacher[cl_n];
+                    }
+                 }
+                 }
+                 
 
         }
         tch.fill(0);
@@ -136,15 +173,16 @@ for(let i = 0 ; i < days ; i++){
     }
 }
 
+
 const layerIndex = 0; // Index of the layer to rotate
 for(let i = 0 ; i < sec ; i++){
 rotate2DArrayInside3DArrayClockwise(section, i);
 }
 
-console.log(map)
+console.log(section)
 }
+
 //console.log(section)
 g_routine(section,days,cls,sec,teacher,tch,val)
 //console.log(section)
-check_map(sec,val,1,1)
 // code just like js
