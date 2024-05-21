@@ -28,7 +28,7 @@ function cls_ava(val, tch) {
 }
 
 
-// check the hash map
+// check the map
 function check(box,cl_n){
     let len = box.length;
     for(let i = 0 ; i < len ;i++){
@@ -123,35 +123,23 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
                                 box[st] = check_sec[k][st][i];
                             }
                             
-                            if(check(box,cls)){
+                            if(check(box,cl_n)){
                                 continue;
                             }else{
                                 tch[cl_n] = 0;
-                                cl_n = cls_ava(val ,tch);
-                                while(tch[cl_n] === 0 && !check(box,cl_n)){
-                                    cl_n = cls_ava(val,tch);
-                                }
+                                cl_n = cls_ava(val,tch);
                                 if(check(box,cl_n)){
-                                    section[k][j][i] = teacher[cl_n]
+                                    section[k][j][i] = teacher[cl_n];
+                                }else{
+                                    while(!check(box,cl_n)){
+                                        cl_n = cls_ava(val,tch);
+                                    }
+                                    section[k][j][i] = teacher[cls];
+                                    tch[cls] = 1;
                                 }
                             }
-                        if (section[k][j][i] === teacher[check_sec[k][c][i]]) {
-                            tch[cl_n] = 0;
-                            
-                            
-                            
-                            cl_n = cls_ava(val, tch);
-
-                            while (tch[cl_n] !== 0 && !check(box,cl_n)) {
-                                cl_n = cls_ava(val, tch);
-                                check(box,cl_n)
-                            }
-                            if(check(box,cl_n)){
-                            section[k][j][i] = teacher[cl_n];
-                            check_sec[k][j][i] = cl_n;
-                            tch[cl_n] = 1;
-                            }
-                        }
+                          
+                           
                     }
                     
                 }
@@ -161,11 +149,10 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
         }
     }
 
-console.log(check_sec)
     for (let i = 0; i < sec; i++) {
         rotate2DArrayInside3DArrayClockwise(section, i);
     }
-    // console.log(section);
+ console.log(section);
 
 }
 
