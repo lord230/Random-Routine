@@ -5,7 +5,7 @@ let z = 0;
 let section = [];
 let check_sec = [];
 const teacher = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9
+1,2,3,4,5,6,7,8,9,10
 ];
 
 const val = teacher.length;
@@ -115,6 +115,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
 
                 section[k][j][i] = teacher[cl_n];
                 check_sec[k][j][i] = cl_n;
+
                         let box = []
 
                 if (j > 0) {
@@ -124,26 +125,32 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
                             }
                             
                             if(check(box,cl_n)){
-                                continue;
+                                break;
                             }else{
                                 tch[cl_n] = 0;
                                 cl_n = cls_ava(val,tch);
                                 if(check(box,cl_n)){
                                     section[k][j][i] = teacher[cl_n];
+                                    tch[cl_n] = 1;
                                 }else{
                                     while(!check(box,cl_n)){
                                         cl_n = cls_ava(val,tch);
                                     }
-                                    section[k][j][i] = teacher[cls];
-                                    tch[cls] = 1;
+                                    if(check(box,cl_n)){
+                                    section[k][j][i] = teacher[cl_n];
+                                    tch[cl_n] = 1;
+                                    }
                                 }
                             }
                           
-                           
+                          
                     }
-                    
+                    // console.log(box)
+                    // console.log(cl_n)
                 }
+                   
                 box.fill(0)
+
             }
             tch.fill(0);
         }
@@ -152,7 +159,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
     for (let i = 0; i < sec; i++) {
         rotate2DArrayInside3DArrayClockwise(section, i);
     }
- console.log(section);
+console.log(section);
 
 }
 
