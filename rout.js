@@ -131,6 +131,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
                                 cl_n = cls_ava(val,tch);
                                 if(check(box,cl_n)){
                                     section[k][j][i] = teacher[cl_n];
+                                    check_sec[k][j][i] = cl_n;
                                     tch[cl_n] = 1;
                                 }else{
                                     while(!check(box,cl_n)){
@@ -138,6 +139,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
                                     }
                                     if(check(box,cl_n)){
                                     section[k][j][i] = teacher[cl_n];
+                                    check_sec[k][j][i] = cl_n;
                                     tch[cl_n] = 1;
                                     }
                                 }
