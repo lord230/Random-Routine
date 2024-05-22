@@ -112,7 +112,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
         for (let j = 0; j < cls; j++) {
             for (let k = 0; k < sec; k++) {
                 let cl_n = cls_ava(val, tch);
-
+if(j === 0){
                 if (cl_n === -1) {
                     console.error("No available teacher found!");
                     g_routine(section, days, cls, sec, teacher, tch, val);
@@ -125,7 +125,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
 
                 section[k][j][i] =cl_n;
                 check_sec[k][j][i] = cl_n;
-
+}
                         let box = []
 
                 if (j > 0) {
@@ -134,17 +134,12 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
                                 box[st] = check_sec[k][st][i];
                             }
                             if(check(box,cl_n)){
+                                
                                 section[k][j][i] = cl_n;
                                 check_sec[k][j][i] = cl_n;
                                 tch[cl_n] = 1;
+                                
                             }else{
-                                tch[cl_n] = 0;
-                                cl_n = cls_ava(val,tch);
-                                if(check(box,cl_n)){
-                                    section[k][j][i] = cl_n;
-                                    check_sec[k][j][i] = cl_n;
-                                    tch[cl_n] = 1;
-                                }else{
                                     while(!check(box,cl_n)){
                                         cl_n = cls_ava(val,tch);
                                     }
@@ -153,7 +148,7 @@ function g_routine(section, days, cls, sec, teacher, tch, val) {
                                     check_sec[k][j][i] = cl_n;
                                     tch[cl_n] = 1;
                                     }
-                                }
+                                
                             }
                     }
                     // console.log(box)
@@ -179,8 +174,6 @@ for (let i = 0; i < sec; i++) {
         }
 }
 console.log(section);
-
-
 
 }
 
